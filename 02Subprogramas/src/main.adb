@@ -44,6 +44,15 @@ procedure Main is
       return Lado_mayor*Lado_menor;
    end Area_rectangulo;
    Area: Float;
+   procedure Intercambiar(A:in out Integer; B : in out Integer) is
+      Primero:Integer:=A;
+      Segundo:Integer:=B;
+   begin
+      A:=Segundo;
+      B:=Primero;
+   end Intercambiar;
+   A : Integer:=5;
+   B : Integer := 10;
 begin
    --  Insert code here.
    --  Put_Nice_Line ("Curso ADA", '-');
@@ -53,6 +62,9 @@ begin
    --  Hacker_lane ("Hola");
    Area:= Area_rectangulo(2.0,4.0);
    Put(Area, Exp => 0, Aft => 2);
+   Put_Line("Antes del cambio:" &A'Image&" "&B'Image);
+   Intercambiar(A,B);
+   Put_Line("Despues del cambio:" &A'Image&" "&B'Image);
    null;
 end Main;
 
