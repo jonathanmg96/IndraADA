@@ -64,7 +64,7 @@ begin
    Put(Area, Exp => 0, Aft => 2);
    Put_Line("Antes del cambio:" &A'Image&" "&B'Image);
    Intercambiar(A,B);
-   Put_Line("Despues del cambio:" &A'Image&" "&B'Image);
+   Put_Line("Despues del cambio anterior:" &A'Image&" "&B'Image);
    null;
 end Main;
 
