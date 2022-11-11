@@ -8,6 +8,7 @@ procedure Main is
    Numero_azar:Integer;
    Es_correcto : boolean := False;
    Intentos : Integer :=0;
+   Max_intentos : Integer;
    --Num_usuario:Integer;
 begin
    --  Insert code here.
@@ -17,12 +18,17 @@ begin
    --     Put(Numero_azar);
    --     Put_Line("");
    --  end loop;
-   Put_Line("Adivina el numero al azar,Tienes 5 Oportunidades para advinar el numero!");
-     Numero_azar:=Integer((Random(G) * 100.00) +1.0);
-   while Es_correcto=FALSE and Intentos<5 loop
+   Reset(G);
+   Put_Line("Empieza el juego de adivinar el NUM aleatorio!");
+   Put_Line("Cuantas rondas quieres jugar?");
+   Get(Max_intentos);
+   Put_Line("Adivina el numero al azar,Tienes"& Max_intentos'Image &" Oportunidades para advinar el numero!");
+   Numero_azar:=Integer((Random(G) * 100.00) +1.0);
+   while Es_correcto=FALSE and Intentos<Max_intentos loop
       declare
          Num_usuario:Integer;
       begin
+         Put_Line("Dinos un numero!");
          Get(Num_usuario);
          if(Num_usuario<Numero_azar) then
             Put_Line("El numero que buscamos es mayor!");
@@ -32,6 +38,7 @@ begin
             Put_Line("Acertaste!");
             Es_correcto:= True;
          end if;
+         Put_Line("");
       end;
 
       Intentos:= Intentos+1;
