@@ -100,9 +100,9 @@ procedure Main is
             if (Num > Min and Num < Max) then
                return Num;
             elsif (Num < Min) then
-               Put_Line (UnderFlow);
+               Put_Line (UnderFlow & " a " & Min'Image);
             elsif (Num > Max) then
-               Put_Line (OverFlow);
+               Put_Line (OverFlow & " a " & Max'Image);
             end if;
             --Put_Line(Error);--Put_Line("Ha Ingresado un valor no numerico, vuelva a intentarlo"); --podriamos quitar este mensaje hardcodeado colocandolo como parametro.
          end;
