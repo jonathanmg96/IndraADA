@@ -57,6 +57,11 @@ package body calendario is
       end case;
 
       end loop;
-      end Mostrar_Meses;
+   end Mostrar_Meses;
+   
+   function To_String_Fecha(Date:Fecha) return String is
+   begin
+      return Date.Dia'Image & "/" & Date.Mes'Image & "/" & Date.Año'Image;
+      end To_String_Fecha;
 
 end calendario;

@@ -22,8 +22,10 @@ procedure Main is
    --  N              : Numero_Largo;
    --  Grados         : Angulo       := 120.5;
    --  Grados_Nuevo   : Angulo_nuevo := 120;
-   Hoy_Es     : Dia_Semana := Martes;
-   Mannana_Es : Dia_Semana := Dia_Semana'Succ (Hoy_Es);
+   --  Hoy_Es     : Dia_Semana := Martes;
+   --  Mannana_Es : Dia_Semana := Dia_Semana'Succ (Hoy_Es);
+   Hoy : Fecha:=(15,Noviembre,2022);
+   Cumple_Jonathan:Fecha :=(Dia => 28 , Mes => Junio , Año => 1998);
 begin
    --  Insert code here.
    --Programa que calcule el area de una figura.
@@ -35,15 +37,16 @@ begin
    --  Put_Line (Area_Triangulo'Image);
    --  Put_Line (Nota_Examen'Image);
    --  Put_Line
---    (Nota'Size'Image);--Cuantos bytes ocupa en memoria el nuevo tipo de dato.
+   --    (Nota'Size'Image);--Cuantos bytes ocupa en memoria el nuevo tipo de dato.
    --  Put_Line (N'Size'Image);
    --  Put_Line (Numero_Largo'Size'Image);
    --  Put_Line (Grados'Image);
    --  Put_Line (Grados_Nuevo'Image);
    --  Put_Line (Hoy_Es'Image);
    --  Put_Line (Mannana_Es'Image);
-   Mostrar_Dias;
-   Mostrar_Meses;
-
+   --  Mostrar_Dias;
+   -- Mostrar_Meses;
+   --  Put_Line(Hoy);
+   Put_Line(To_String_Fecha(Hoy));
    null;
 end Main;
