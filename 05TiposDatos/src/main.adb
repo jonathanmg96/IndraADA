@@ -1,7 +1,8 @@
-with Ada.Text_IO;       use Ada.Text_IO;
-with Ada.Float_Text_IO; use Ada.Float_Text_IO;
-with figuras;           use figuras;
-with calendario;           use calendario;
+with Ada.Text_IO;         use Ada.Text_IO;
+with Ada.Float_Text_IO;   use Ada.Float_Text_IO;
+with figuras;             use figuras;
+with calendario;          use calendario;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 procedure Main is
    type Nota is new Integer range 1 .. 10 with
       Default_Value => 5; --Tipo de dato restringido al que le damos un valor por defecto.
@@ -23,9 +24,9 @@ procedure Main is
    --  Grados         : Angulo       := 120.5;
    --  Grados_Nuevo   : Angulo_nuevo := 120;
    --  Hoy_Es     : Dia_Semana := Martes;
-   --  Mannana_Es : Dia_Semana := Dia_Semana'Succ (Hoy_Es);
-   Hoy : Fecha:=(15,Noviembre,2022);
-   Cumple_Jonathan:Fecha :=(Dia => 28 , Mes => Junio , Año => 1998);
+   --  --  Mannana_Es : Dia_Semana := Dia_Semana'Succ (Hoy_Es);
+   --  Hoy : Fecha:=(15,Noviembre,2022);
+   --  Cumple_Jonathan:Fecha :=(Dia => 28 , Mes => Junio , Año => 1998);
 begin
    --  Insert code here.
    --Programa que calcule el area de una figura.
@@ -37,7 +38,7 @@ begin
    --  Put_Line (Area_Triangulo'Image);
    --  Put_Line (Nota_Examen'Image);
    --  Put_Line
-   --    (Nota'Size'Image);--Cuantos bytes ocupa en memoria el nuevo tipo de dato.
+--    (Nota'Size'Image);--Cuantos bytes ocupa en memoria el nuevo tipo de dato.
    --  Put_Line (N'Size'Image);
    --  Put_Line (Numero_Largo'Size'Image);
    --  Put_Line (Grados'Image);
@@ -47,6 +48,35 @@ begin
    --  Mostrar_Dias;
    -- Mostrar_Meses;
    --  Put_Line(Hoy);
-   Put_Line(To_String_Fecha(Hoy));
+   --  Put_Line(To_String_Fecha(Hoy));
+   --  declare
+   --     type Nota is new Integer range 1 .. 10;
+   --     subtype Notas_Buenas is Nota range 8 .. 10;
+   --     subtype Notas_Malas is Nota range 1 .. 3;
+   --     subtype Notas_Aprobadas is Nota range 4 .. 7;
+   --     Examen    : Nota := 10;
+   --     Mala_Nota : Notas_Malas;
+   --  begin
+   --     --  Mala_Nota := Examen; --Fuera de rango
+   --     Put_Line ("Que nota sacaste?");
+   --     Get (Integer (Examen));
+   --     case Examen is
+   --        when Notas_Malas =>
+   --           Put_Line ("te sacaste una mala nota");
+   --        when Notas_Aprobadas =>
+   --           Put_Line ("te sacaste una Buena nota");
+   --        when Notas_Buenas =>
+   --           Put_Line ("te sacaste una Buenisima nota");
+   --     end case;
+--  end;
+   declare
+      subtype Cantidad is Positive;
+      A : Cantidad := 10;
+      B : Positive := 40;
+
+   begin
+      B:=A;
+      Put_Line("Declaro un alias de un tipo");
+   end;
    null;
 end Main;
