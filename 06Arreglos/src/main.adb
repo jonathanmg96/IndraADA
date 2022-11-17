@@ -1,8 +1,9 @@
-with io;                    use io;
-with Ada.Text_IO;           use Ada.Text_IO;
-with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with io;                      use io;
+with Ada.Text_IO;             use Ada.Text_IO;
+with Ada.Integer_Text_IO;     use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
+with Ada.Characters.Handling; use Ada.Characters.Handling;
+with Ada.Float_Text_IO;       use Ada.Float_Text_IO;
 procedure Main is
 
 begin
@@ -115,6 +116,15 @@ begin
       type Notas is array (Positive range <>) of Nota with
          Default_Component_Value => 10;
       Lista_Examenes : Notas (1 .. Limite);
+
+      type Calificacion is
+        (Insuficiente, Reprobado, Aprobado, Bueno, Muy_Bueno, Exelente);
+
+      Nota_To_Califiacion : array (Nota) of Calificacion :=
+        (1  => Insuficiente, 5..7 => Aprobado, 8 => Bueno, 9 => Muy_Bueno,
+         10 => Exelente, others => Reprobado);
+      --
+
       procedure Cargar_Datos (List : out Notas) is
 
       begin
@@ -125,35 +135,36 @@ begin
       procedure Listar_Notas (List : in Notas) is
       begin
          Put ("Tus notas del curso han sido[");
-         for I of List loop
-            if I = List (List'Length) then
-               Put (I'Image);
-            else
-               Put (I'Image & ",");
-            end if;
+         for I in List'Range loop
+            --  if I = List (List'Length) then
+            --     Put (I'Image);
+            --  else
+            --     Put (I'Image & ",");
+            --  end if;
+            Put_Line (I'Image & "(" & List (I)'Image & ")");
          end loop;
          Put ("]");
          Put_Line ("");
       end Listar_Notas;
 
       function Nota_Mas_Alta (List : in Notas) return Nota is
-         Max : Nota:= Nota'First;
+         Max : Nota := Nota'First;
       begin
          for Examen of List loop
-            if (max<Examen) then
-               Max:=Examen;
+            if (Max < Examen) then
+               Max := Examen;
             end if;
          end loop;
          return Max;
       end Nota_Mas_Alta;
       function Nota_Media (List : in Notas) return Float is
-         Total : Float:= 0.0;
+         Total : Float := 0.0;
       begin
          for Examen of List loop
-               Total:=Total+Float(Examen);
+            Total := Total + Float (Examen);
          end loop;
          --Put_Line(Total'Image);
-         return Total/Float(List'Length);
+         return Total / Float (List'Length);
       end Nota_Media;
 
       --  procedure Mostrar_Notas(Lista : in Lista_Examenes) is
@@ -163,13 +174,75 @@ begin
       --        Put_line(Examen'Image);
       --     end loop;
       --  end Mostrar_Notas;
+      function Replace_Character
+        (Input : in String; From : Character; To : Character) return String
+      is
+
+         Result : String := Input;
+      begin
+         for I in Result'Range loop
+            if Result (I) = From then
+               Result (I) := To;
+            end if;
+         end loop;
+         return Result;
+      end Replace_Character;
+      --Ejercicio Notas
+
+      function To_String (Item : Calificacion) return String is
+         Result : String := Item'Image;
+      begin
+         --  for I in Result'Range loop
+         --     if I > 1 then
+         --        Result (I) := To_Lower (Result (I));
+         --     end if;
+         --
+         --  end loop;
+         --  return Result;
+         return
+           Result (1 .. 1) &
+           To_Lower
+             (Replace_Character (Result (2 .. Item'Image'Length), '_', ' '));
+      end To_String;
+
+      procedure Mostrar_Notas (Lista : in Notas; Promp : String:="Has sacado las siguientes notas:") is
+      begin
+         Put_Line (Promp);
+         for Examen of Lista loop
+            Put_Line
+              (Examen'Image & " (" & To_String (Nota_To_Califiacion (Examen)) &
+               ")");
+         end loop;
+      end Mostrar_Notas;
+
+      function Examenes_Aprobados (Lista : in Notas; Nota_Aprobado : Nota :=5) return  Notas is
+         Aprobados : Notas (1..Lista'Length);
+         Cont : Integer := 0;
+      begin
+         for I of Lista loop
+            if (I >= Nota_Aprobado) then
+               Cont := Cont+1;
+               Aprobados(Cont) := I;
+            end if;
+         end loop;
+         return Aprobados(1..Cont);
+      end Examenes_Aprobados;
+
    begin
+
       Cargar_Datos (Lista_Examenes);
 
       Listar_Notas (Lista_Examenes);
-      Put_Line("La nota mas alta es: " & Nota_Mas_Alta(Lista_Examenes)'Image);
-      Put("La nota media es: ");
-      Put(Nota_Media(Lista_Examenes), Exp=>0, Aft=>2);
+      Put_Line
+        ("La nota mas alta es: " & Nota_Mas_Alta (Lista_Examenes)'Image);
+      Put ("La nota media es: ");
+      Put (Nota_Media (Lista_Examenes), Exp => 0, Aft => 2);
+      Put_Line ("");
+      --
+      Mostrar_Notas (Lista_Examenes);
+      Put_Line ("");
+      Mostrar_Notas(Examenes_Aprobados(Lista_Examenes),"Estas son tus notas aprobadas!:");
+      --Put_Line(Mostrar_Media(Lista_Examenes));
       -- Ejemplo cpon el Between
       --  declare
       --     type Nota is new Integer range 1..10 with Default_Value => 5;

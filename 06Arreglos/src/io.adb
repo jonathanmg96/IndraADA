@@ -1,4 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+with Ada.Strings; use Ada.Strings;
 package body io is
 
    function Get_Non_Empty_Line
@@ -134,7 +136,7 @@ package body io is
    --Profe
    function To_String
      (Input:Float;       Cantidad_Decimales : Integer := 2;       Separador_Decimales : Character := ',') return String is
-      Result :String := Integer(Float'Floor(Input))'Image & Separador_Decimales & Integer((Input - Float'Floor(Input)) * Float(10 ** Cantidad_Decimales))'Image ;
+      Result :String := Integer(Float'Floor(Input))'Image & Separador_Decimales & Trim(Integer((Input - Float'Floor(Input)) * Float(10 ** Cantidad_Decimales))'Image,Both);
    begin
       return result;
    end To_String;
